@@ -63,10 +63,15 @@ class KNIFE{                          //class knife-----------------------------
     }
   }
 }                                      //class knife---------------------------------------
+PFont title,start,failed,restart;
 void setup(){                          //set
   size(720,1080);
   frameRate(60);
   LevelSET(1);
+  title=createFont("Another_.ttf",200);
+  start=createFont("ampersand.ttf",100);
+  restart=createFont("SMLFATMARKER.ttf",100);
+  failed=createFont("PermanentMarker.ttf",100);
 }
 int level=1,time=0,RestKnife=8+(level-1)*2,status=4,i;
 float moveX=5,moveY=0,Xpos=0,Ypos=0,rotate=-PI/120;
@@ -90,13 +95,11 @@ void draw(){  //draw
     if(status==2){
       pushMatrix();
       translate(width/2,height/2+10);
-      //println(Xpos,Ypos);
       rotate(rotate);
       colorMode(RGB);
       fill(255,0,0);
       rect(Ypos,Xpos,40,200);
       popMatrix();
-      println(Ypos);
       if(Ypos<=-1*height){
         Ypos=0;Xpos=0;
         rotate=-PI/120;
@@ -140,17 +143,17 @@ void draw(){  //draw
 void START(){
   background(233, 234, 236);
   textAlign(RIGHT);
-  textSize(172);
   fill(6,5,5);
+  textFont(title);
   text("Hit",253,192);
-  text("Game!",650,372);
+  text("Game!",454,317);
   if(i%21<=8)
     fill(233,234,236);
   else
     fill(250,170,20);
-  textSize(100);
+  textFont(start);
   textAlign(CENTER);
-  text("Click To Start",365,726);
+  text("TAP To Start",356,717);
   i++;
 }
 void LevelSET(int i){  
@@ -175,17 +178,20 @@ void LevelUP(boolean b){
 void Restart(){
   background(219,132-i,47);
   fill(254);
-  textSize(240);
+  textFont(failed);
+  textSize(196);
   text("Failed",365,420);
   i++;
   if(i>=180){ 
     rectMode(CORNER);
-    noStroke();
-    fill(244,157,55);
-    rect(83,600,555,238);
+    strokeWeight(8);
+    stroke(255);
+    noFill();
+    rect(83,600,555,238,10);
     fill(255);
-    textSize(128);
-    text("RESTART",355,769);  
+    textFont(restart);
+    textSize(99);
+    text("RESTART",360,764);  
   }
 }
 void mouseClicked(){                  //mouseClicked
@@ -209,4 +215,4 @@ void mouseClicked(){                  //mouseClicked
 void drawLog(){           //draw log
   fill(0,0,0);
   ellipse(0,0,400,400);
-}
+  }
